@@ -13,26 +13,36 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
+stages:
+- stage: BuildAndPackage
+  displayName: 'Build and package'
+  jobs:
+  - job: Build
+    steps:
+    - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'dotnet build $(buildConfiguration)'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'minhaApi'
-    
-    
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Assinatura do Azure Básico(51322cac-05a1-4b4f-a3e9-dd3172595c84)'
-    appType: 'webAppLinux'
-    WebAppName: 'api-images'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: True
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: 'minhaApi'
+
+- stage: 'Release'
+  displayName: 'Release'
+  jobs:
+  - job: Release
+    steps:
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Assinatura do Azure Básico(51322cac-05a1-4b4f-a3e9-dd3172595c84)'
+        appType: 'webAppLinux'
+        WebAppName: 'api-images'
+        packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
