@@ -30,8 +30,9 @@ stages:
           zipAfterPublish: true
       - task: PublishBuildArtifacts@1
         inputs:
-          pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-          artifactName: 'minhaApi'
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'minhaApi'
+          publishLocation: 'Container'
 
 - stage: Release
   displayName: 'Release'
