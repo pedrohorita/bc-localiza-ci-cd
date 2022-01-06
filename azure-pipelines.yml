@@ -32,7 +32,6 @@ stages:
         inputs:
           pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
           artifactName: 'minhaApi'
-
   - stage: Release
     displayName: 'Release'
     jobs:
@@ -45,4 +44,3 @@ stages:
           appType: 'webAppLinux'
           WebAppName: 'api-images'
           packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
-          RuntimeStack: 'DOTNETCORE|5.0'
