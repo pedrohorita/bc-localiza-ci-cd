@@ -39,10 +39,11 @@ namespace bc_localiza_api_ci_cd
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "bc_localiza_api_ci_cd v1"));
+                app.UseDeveloperExceptionPage();                
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "bc_localiza_api_ci_cd v1"));
 
             app.UseHttpsRedirection();
 
