@@ -39,6 +39,8 @@ stages:
   jobs:
   - job: release
     steps:  
+    - download: current
+      artifact: minhaApi
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
