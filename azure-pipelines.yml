@@ -33,7 +33,7 @@ stages:
           pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
           artifactName: 'minhaApi'
 
-  - stage: 'Release'
+  - stage: Release
     displayName: 'Release'
     jobs:
     - job: Release
