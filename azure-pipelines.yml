@@ -42,7 +42,7 @@ stages:
   - deployment: DeployWeb
     displayName: deploy Web App
     pool:
-      vmImage: 'Ubuntu-16.04'
+      vmImage: 'ubuntu-latest'
     environment: 'prd'
     strategy: 
       runOnce:
