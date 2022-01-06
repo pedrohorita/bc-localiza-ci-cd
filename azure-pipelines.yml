@@ -44,4 +44,4 @@ stages:
           azureSubscription: 'Assinatura do Azure Básico(51322cac-05a1-4b4f-a3e9-dd3172595c84)'
           appType: 'webAppLinux'
           WebAppName: 'api-images'
-          packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+          packageForLinux: '$(Build.ArtifactStagingDirectory).zip'
